@@ -2,7 +2,6 @@ from pathlib import Path
 import json
 import logging
 from typing import List
-from uuid import uuid4 as uuid
 
 from flashcard_atomiser import Anki, Gemini, AnkiCard, QAs
 
@@ -91,7 +90,7 @@ def main() -> None:
         except Exception as e:
             logger.error(f"Unexpected connection crash: {e}. Dumping progress and retrying...")
             try:
-                Anki.create_package(new_cards).write_to_file(FLASHCARDS_OUT_PATH / Path(f"dump_{uuid()}.apkg"))
+                Anki.create_package(new_cards).write_to_file(FLASHCARDS_OUT_PATH / Path(f"dump_{dumps_created + 1}.apkg"))
                 dumps_created += 1
                 logger.info(f"Dump Anki package {dumps_created} created successfully.")
             except Exception as e:

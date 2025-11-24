@@ -5,7 +5,7 @@ from flashcard_atomiser import Gemini
 
 
 OUTPUT_LOG_PATH = Path("./chat_cleanup.log")
-NUMBER_TO_DELETE = 11
+NUMBER_TO_DELETE = 100
 NTH_MOST_RECENT = 0
 
 
