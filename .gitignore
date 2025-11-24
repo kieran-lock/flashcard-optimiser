@@ -1,0 +1,4 @@
+flashcards_out/
+**/__pycache__/
+**/*.log
+**/*.txt
