@@ -1,11 +1,11 @@
 from pathlib import Path
 import logging
 
-from flashcard_atomiser import Gemini
+from flashcard_optimiser import Gemini
 
 
 OUTPUT_LOG_PATH = Path("./chat_cleanup.log")
-NUMBER_TO_DELETE = 100
+NUMBER_TO_DELETE = 0
 NTH_MOST_RECENT = 0
 
 

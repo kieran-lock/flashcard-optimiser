@@ -3,7 +3,7 @@ import json
 import logging
 from typing import List
 
-from flashcard_atomiser import Anki, Gemini, AnkiCard, QAs
+from flashcard_optimiser import Anki, Gemini, AnkiCard, QAs
 
 
 INPUT_FILE_PATH = Path("./exported.txt")
@@ -68,6 +68,7 @@ def main() -> None:
                         logger.warning(f"Raw Response Was:\n{raw_output.replace('\n', "\n\t")}")
                         continue
                     new_cards_generated = 0
+                    intermediary_flag = False
                     for qa in QAs.model_validate({"qas": output}).qas:
                         new_card = AnkiCard.from_qa(
                             qa,
@@ -76,16 +77,18 @@ def main() -> None:
                         )
                         new_cards.append(new_card)
                         if new_cards and len(new_cards) % 30 == 0:
+                            intermediary_flag = True
                             logger.info(f"Generated {len(new_cards)} cards so far...")
-                            try:
-                                Anki.create_package(new_cards).write_to_file(FLASHCARDS_OUT_PATH / Path(f"intermediary_{intermediaries_created + 1}.apkg"))
-                                intermediaries_created += 1
-                                logger.info(f"Intermediary Anki package {intermediaries_created} created successfully.")
-                            except Exception as e:
-                                logger.error(f"Failed to create intermediary Anki package: {e}")
-                                continue
                         new_cards_generated += 1
                     logger.info(f"Successfully generated {new_cards_generated} new cards from old card {original_idx + 1}.")
+                    if intermediary_flag:
+                        try:
+                            Anki.create_package(new_cards).write_to_file(FLASHCARDS_OUT_PATH / Path(f"intermediary_{intermediaries_created + 1}.apkg"))
+                            intermediaries_created += 1
+                            logger.info(f"Intermediary Anki package {intermediaries_created} created successfully.")
+                        except Exception as e:
+                            logger.error(f"Failed to create intermediary Anki package: {e}")
+                            continue
                     remaining_cards.remove(old_card)
         except Exception as e:
             logger.error(f"Unexpected connection crash: {e}. Dumping progress and retrying...")
