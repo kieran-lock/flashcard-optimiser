@@ -1,7 +1,7 @@
 CHROME_PATH := "/home/kieran/.cache/ms-playwright/chromium-1194/chrome-linux/chrome"
-VENV_PATH := "/home/kieran/workspace/kieran/flashcard-atomiser/.venv/bin/python"
-ENTRYPOINT_PATH := "/home/kieran/workspace/kieran/flashcard-atomiser/main.py"
-CLEANUP_ENTRYPOINT_PATH := "/home/kieran/workspace/kieran/flashcard-atomiser/cleanup.py"
+VENV_PATH := "/home/kieran/workspace/kieran/flashcard-optimiser/.venv/bin/python"
+ENTRYPOINT_PATH := "/home/kieran/workspace/kieran/flashcard-optimiser/main.py"
+CLEANUP_ENTRYPOINT_PATH := "/home/kieran/workspace/kieran/flashcard-optimiser/cleanup.py"
 BROWSER_PROFILE_PATH := "/tmp/chrome-debug-profile"
 PORT := 9222
 
